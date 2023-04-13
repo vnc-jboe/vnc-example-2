@@ -1,0 +1,22 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Vancado\VncExample2\:
+    resource: '../Classes/*'
+
+  Vancado\VncExample2\EventListener\MailProductBoughtListener:
+    tags:
+      - name: 'event.listener'
+        identifier: 'example/mailproductbought'
+        event: Vancado\VncExample1\Event\ProductHasBeenBoughtEvent
+        before: 'example/productstock'
+
+  Vancado\VncExample2\EventListener\MailAfterFetchedProductFromStockListener:
+    tags:
+      - name: 'event.listener'
+        identifier: 'example/mailafterfetchedproductfromstock'
+        event: Vancado\VncExample1\Event\ProductHasBeenBoughtEvent
+        after: 'example/productstock'
